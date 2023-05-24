@@ -14,6 +14,13 @@ namespace MentorshipProgram.Session1
             list.Add(1);
             list.Add(2);
             list.Traverse();
+            list.Remove(1);
+            list.Traverse();
+            list.Add(3);
+            list.Add(4);
+            list.Traverse();
+            list.Remove(4);
+            list.Traverse();
         }
 
         public class LinkedList
@@ -41,6 +48,7 @@ namespace MentorshipProgram.Session1
 
             public void Traverse()
             {
+                Console.WriteLine("----------------");
                 Node current = head;
                 if (current == null) return;
                 else
@@ -52,6 +60,35 @@ namespace MentorshipProgram.Session1
                         Console.WriteLine(current.value);
                     }
                 }
+            }
+
+            public void Remove(int value)
+            {
+                Node curr = head;
+                Node prev = null;
+                while (curr != null)
+                {
+                    if (curr.value == value)
+                    {
+                        if (curr == head)
+                        {
+                            head = head.next;
+                        }
+                        else
+                        {
+                            prev.next = curr.next;
+                            curr = head;
+                        }
+
+                    }
+                    prev = curr;
+                    curr = curr.next;
+                }
+            }
+
+            private Node GetHead()
+            {
+                return head;
             }
         }
 
