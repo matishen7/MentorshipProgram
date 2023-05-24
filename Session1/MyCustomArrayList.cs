@@ -10,13 +10,10 @@ namespace MentorshipProgram
         public void MyArrayList()
         {
             CustomArrayList my_array_list = new CustomArrayList();
+            my_array_list.Add(2);
             my_array_list.Set(0, 1);
             Console.WriteLine(my_array_list.Get(0));
-            my_array_list.Add(2);
-            Console.WriteLine(my_array_list.Get(0));
-            Console.WriteLine(my_array_list.Get(1));
-            my_array_list.remove(1); //
-            Console.WriteLine(my_array_list.Get(0));
+            my_array_list.remove(0); //
             Console.WriteLine(my_array_list.Size());
             my_array_list.Add(2);
             my_array_list.Add(2);
@@ -27,7 +24,7 @@ namespace MentorshipProgram
         public class CustomArrayList
         {
             private int[] elements;
-            private int defaultSize = 1;
+            private int defaultSize = 0;
 
             public CustomArrayList()
             {
