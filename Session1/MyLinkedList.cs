@@ -85,11 +85,6 @@ namespace MentorshipProgram.Session1
                     curr = curr.next;
                 }
             }
-
-            private Node GetHead()
-            {
-                return head;
-            }
         }
 
         public class Node
