@@ -49,6 +49,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Session1\CustomHashMapProgram.cs" />
     <Compile Include="Session1\CustomSetProgram.cs" />
     <Compile Include="Session1\MyCustomArrayList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

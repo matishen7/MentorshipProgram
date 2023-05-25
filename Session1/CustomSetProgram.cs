@@ -86,7 +86,7 @@ namespace MentorshipProgram.Session1
             public bool Exists(T value)
             {
                 foreach (var element in elements)
-                    if (element.Equals(value)) return true;
+                    if (EqualityComparer<T>.Default.Equals(element, value)) return true;
                 return false;
             }
 
