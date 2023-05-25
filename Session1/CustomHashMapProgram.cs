@@ -50,7 +50,7 @@ namespace MentorshipProgram.Session1
                 }
             }
 
-            public void Add()
+            //public void Add()
 
             private int KeyExists(K key)
             {
