@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 
 namespace MentorshipProgram.Session1
@@ -20,16 +21,25 @@ namespace MentorshipProgram.Session1
             Console.WriteLine(my_set.Size());
             Console.WriteLine(my_set.IsEmpty());
 
-            var numbers = new CustomSet<Int32>();
+            var numbers = new CustomSet<int>();
             numbers.Add(1);
             numbers.Add(2);
             numbers.Add(3);
+            numbers.Add(3);
+            Console.WriteLine(numbers.Size());
+            numbers.Remove(3);
+            numbers.Remove(3);
             numbers.Remove(3);
             Console.WriteLine(numbers.Size());
             Console.WriteLine(numbers.IsEmpty());
+            numbers.Remove(1);
+            numbers.Remove(2);
+            Console.WriteLine(numbers.Size());
+            Console.WriteLine(numbers.IsEmpty());
+
         }
 
-        public class CustomSet<T>
+        public class CustomSet<T> where T : IEquatable<T>
         {
             private T[] elements;
             private int defaultSize = 0;
@@ -82,10 +92,10 @@ namespace MentorshipProgram.Session1
 
             private T[] CopyValues(T[] source, T[] target, T value)
             {
-                int targetIndex = target.Length - 1;
+                int targetIndex = 0;
                 for (int i = 0; i < source.Length; i++)
                 {
-                    if (value != null && source[i].Equals(value)) continue;
+                    if (EqualityComparer<T>.Default.Equals(source[i], value)) continue;
                     else
                     {
                         target[targetIndex] = source[i];
