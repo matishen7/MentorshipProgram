@@ -20,12 +20,12 @@ namespace MentorshipProgram.Session1
         {
             private K[] keys;
             private V[] values;
-            private int defaultSize = 0;
+            private int size = 0;
 
             public CustomHashMap()
             {
-                keys = new K[defaultSize];
-                values = new V[defaultSize];
+                keys = new K[size];
+                values = new V[size];
             }
 
             public V this[K key]
@@ -33,7 +33,6 @@ namespace MentorshipProgram.Session1
                 get
                 {
                     int index = KeyExists(key);
-
                     if (index != -1)
                         return values[index];
                     throw new Exception("Key does not exist!");
@@ -43,9 +42,15 @@ namespace MentorshipProgram.Session1
                     int index = KeyExists(key);
                     if (index != -1)
                         values[index] = value;
-                    throw new Exception("Key does not exist!");
+                    else
+                    {
+                        var newKeys = new K[keys.Length + 1];
+                    }
+
                 }
             }
+
+            public void Add()
 
             private int KeyExists(K key)
             {
