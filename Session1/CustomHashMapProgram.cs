@@ -11,131 +11,29 @@ namespace MentorshipProgram.Session1
         [TestMethod]
         public void Test_CustomHashMap()
         {
-            var dict = new CustomHashMap<string, string> { };
-            //dict["1"] = "1";
-            Console.WriteLine(dict["1"]);
-        }
+            string key = "key";
+            string val = "value";
 
-        private class CustomHashMap<K, V>
-        {
-            private K[] keys;
-            private V[] values;
-            private int size = 0;
+            Dictionary<string, string> map = new Dictionary<string, string>();
+            map.Add(key, val);
 
-            public CustomHashMap()
-            {
-                keys = new K[size];
-                values = new V[size];
-            }
+            Console.WriteLine("Dictionary object created. Its key hashcode = " + key.GetHashCode());
+            // the hashcode is 106079
+            Console.WriteLine("Dictionary object value for key = " + map[key]);
 
-            public V this[K key]
-            {
-                get
-                {
-                    int index = KeyExists(key);
-                    if (index != -1)
-                        return values[index];
-                    throw new Exception("Key does not exist!");
-                }
-                set
-                {
-                    int index = KeyExists(key);
-                    if (index != -1)
-                        values[index] = value;
-                    else
-                    {
-                        var newKeys = new K[keys.Length + 1];
-                    }
+            // Let's store using a key with the same hashcode
+            int intkey = 106079;
+            val = "value2";
+            map[intkey.ToString()] = val;
+            Console.WriteLine("Dictionary object created. Its intkey hashcode = " + intkey.GetHashCode());
+            // this returns 106079 once again. So both key and intkey have the same hashcode
 
-                }
-            }
-
-            //public void Add()
-            
-            private int KeyExists(K key) 
-            {
-                for (int i = 0; i < keys.Length; i++)
-                {
-                    if (keys[i].Equals(key)) return i;
-                }
-                return -1;
-            }
+            // Let's get the values
+            Console.WriteLine("Dictionary object value for intkey = " + map[intkey.ToString()]);
+            Console.WriteLine("Dictionary object value for key = " + map[key]);
 
         }
 
-        public class CustomSet<T> where T : IEquatable<T>
-        {
-            private T[] elements;
-            private int defaultSize = 0;
-            public CustomSet()
-            {
-                elements = new T[defaultSize];
-            }
 
-            public void Add(T value)
-            {
-                var exists = Exists(value);
-                if (!exists)
-                {
-                    var newElements = new T[elements.Length + 1];
-                    newElements = CopyValues(elements, newElements);
-                    newElements[newElements.Length - 1] = value;
-                    elements = new T[newElements.Length];
-                    elements = newElements;
-                }
-            }
-
-            public void Remove(T value)
-            {
-                var exists = Exists(value);
-                if (exists)
-                {
-                    T[] newElements = new T[this.elements.Length - 1];
-                    newElements = CopyValues(elements, newElements, value);
-                    elements = new T[newElements.Length];
-                    elements = CopyValues(newElements, elements);
-                }
-            }
-
-            public bool IsEmpty()
-            {
-                return elements.Length == 0;
-            }
-
-            public int Size()
-            {
-                return elements.Length;
-            }
-
-            public bool Exists(T value)
-            {
-                foreach (var element in elements)
-                    if (EqualityComparer<T>.Default.Equals(element, value)) return true;
-                return false;
-            }
-
-            private T[] CopyValues(T[] source, T[] target, T value)
-            {
-                int targetIndex = 0;
-                for (int i = 0; i < source.Length; i++)
-                {
-                    if (EqualityComparer<T>.Default.Equals(source[i], value)) continue;
-                    else
-                    {
-                        target[targetIndex] = source[i];
-                        targetIndex++;
-                    }
-                }
-                return target;
-            }
-
-            private T[] CopyValues(T[] source, T[] target)
-            {
-                for (int i = 0; i < source.Length; i++)
-                    target[i] = source[i];
-
-                return target;
-            }
-        }
     }
 }
