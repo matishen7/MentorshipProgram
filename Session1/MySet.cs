@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace MentorshipProgram.Session1
 {
-    [TestClass]
+    [TestClass]//revised version
     public class MySetProgram
     {
         [TestMethod]
