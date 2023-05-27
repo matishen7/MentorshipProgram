@@ -54,6 +54,7 @@
     <Compile Include="Session1\MyCustomArrayList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Session1\MyLinkedList.cs" />
+    <Compile Include="Session1\MySet.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
