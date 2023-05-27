@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Security.Policy;
 using static MentorshipProgram.Session1.CustomSetProgram;
 
 namespace MentorshipProgram.Session1
@@ -22,7 +23,7 @@ namespace MentorshipProgram.Session1
             Console.WriteLine("Dictionary object value for key = " + map[key]);
 
             // Let's store using a key with the same hashcode
-            int intkey = 106079;
+            int intkey = key.GetHashCode();
             val = "value2";
             map[intkey.ToString()] = val;
             Console.WriteLine("Dictionary object created. Its intkey hashcode = " + intkey.GetHashCode());
@@ -32,6 +33,30 @@ namespace MentorshipProgram.Session1
             Console.WriteLine("Dictionary object value for intkey = " + map[intkey.ToString()]);
             Console.WriteLine("Dictionary object value for key = " + map[key]);
 
+            Console.WriteLine("-----------------");
+            var mymap = new MyHashMap<string, string>(1);
+            mymap.Add("key1", "val1");
+            mymap.Add("key2", "val2");
+
+        }
+
+        public class MyHashMap<TKey, TValue>
+        {
+            private TKey Key { get; set; }
+            private TValue Value { get; set; }
+
+            private TValue[] Elements { get; set; }
+            public MyHashMap(int size)
+            {
+                Elements = new TValue[size];
+            }
+
+            public void Add(TKey key, TValue value)
+            {
+                int hashcode = key.GetHashCode();
+                int index = Math.Abs(hashcode) % Elements.Length;
+                Elements[index] = value;
+            }
         }
 
 
