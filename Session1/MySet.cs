@@ -16,6 +16,8 @@ namespace MentorshipProgram.Session1
             set1.Add("c");
             set1.Add("c");
             set1.Remove("a");
+            set1.Remove("b");
+            Console.WriteLine(set1.Contains("c"));
         }
 
         public class MySet<T>
@@ -34,6 +36,16 @@ namespace MentorshipProgram.Session1
             public void Remove(T key)
             {
                 keys.Remove(key);
+            }
+
+            public void Clear()
+            {
+                keys.Clear();
+            }
+
+            public bool Contains(T key)
+            {
+                return keys.ContainsKey(key);
             }
         }
     }
