@@ -34,9 +34,10 @@ namespace MentorshipProgram.Session1
             Console.WriteLine("Dictionary object value for key = " + map[key]);
 
             Console.WriteLine("-----------------");
-            var mymap = new MyHashMap<string, string>(1);
+            var mymap = new MyHashMap<string, string>();
             mymap.Add("key1", "val1");
             mymap.Add("key2", "val2");
+            mymap.Add("key3", "val3");
 
         }
 
@@ -46,7 +47,18 @@ namespace MentorshipProgram.Session1
             private TValue Value { get; set; }
 
             private TValue[] Elements { get; set; }
+
+            private int size = 2;
+
+            private int currentIndex = 0;
+
+
             public MyHashMap(int size)
+            {
+                Elements = new TValue[size];
+            }
+
+            public MyHashMap()
             {
                 Elements = new TValue[size];
             }
@@ -54,11 +66,39 @@ namespace MentorshipProgram.Session1
             public void Add(TKey key, TValue value)
             {
                 int hashcode = key.GetHashCode();
-                int index = Math.Abs(hashcode) % Elements.Length;
-                Elements[index] = value;
+                if (currentIndex < Elements.Length)
+                {
+                    int index = Math.Abs(hashcode) % Elements.Length;
+                    Elements[index] = value;
+                }
+                else
+                {
+
+                    var newElements = new TValue[size * 2];
+                    Array.Copy(Elements, newElements, size);
+                    int index = Math.Abs(hashcode) % newElements.Length;
+                    newElements[index] = value;
+                    Elements = newElements;
+                }
+                currentIndex++;
             }
         }
 
+        private class Node<TKey, TValue>
+        {
+            int hashCode;
+            TValue value;
+            TKey key;
+            Node<TKey, TValue> next;
 
+            public Node(TKey key, TValue value)
+            {
+                this.key = key;
+                this.value = value;
+
+            }
+        }
     }
 }
+
+
