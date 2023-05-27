@@ -18,6 +18,15 @@ namespace MentorshipProgram.Session1
             set1.Remove("a");
             set1.Remove("b");
             Console.WriteLine(set1.Contains("c"));
+
+            var set2 = new MySet<int>();
+            set2.Add(1);
+            set2.Add(2);
+            set2.Add(2);
+            set2.Add(2);
+            set2.Remove(2);
+            set2.Remove(2);
+            Console.WriteLine(set2.Contains(3));
         }
 
         public class MySet<T>
