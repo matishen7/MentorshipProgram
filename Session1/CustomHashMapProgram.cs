@@ -12,137 +12,91 @@ namespace MentorshipProgram.Session1
         [TestMethod]
         public void Test_CustomHashMap()
         {
-            string key = "key";
-            string val = "value";
-
-            Dictionary<string, string> map = new Dictionary<string, string>();
-            map.Add(key, val);
-
-            Console.WriteLine("Dictionary object created. Its key hashcode = " + key.GetHashCode());
-            // the hashcode is 106079
-            Console.WriteLine("Dictionary object value for key = " + map[key]);
-
-            // Let's store using a key with the same hashcode
-            int intkey = key.GetHashCode();
-            val = "value2";
-            map[intkey.ToString()] = val;
-            Console.WriteLine("Dictionary object created. Its intkey hashcode = " + intkey.GetHashCode());
-            // this returns 106079 once again. So both key and intkey have the same hashcode
-
-            // Let's get the values
-            Console.WriteLine("Dictionary object value for intkey = " + map[intkey.ToString()]);
-            Console.WriteLine("Dictionary object value for key = " + map[key]);
-
-            Console.WriteLine("-----------------");
-            var mymap = new MyHashMap<string, string>();
-            mymap.Add("key1", "val1");
-            mymap.Add("key2", "val2");
-            mymap.Add("key2", "val3");
-            mymap.Add("key3", "val3");
-            mymap.Add("key4", "val4");
-            //mymap.Add("key3", "val3");
-            // mymap.Add("key3", "val3");
-            //mymap.Add("key3", "val3");
-            Console.WriteLine(mymap.Get("key1"));
-            //Console.WriteLine(mymap.Get("key2"));
-            //Console.WriteLine(mymap.Get("key4"));
-            //Console.WriteLine(mymap.Get("key5"));
-            //Console.WriteLine(mymap.Get("key6"));
+            var my_dictionary = new MyDictionary<string, string>();
+            my_dictionary.Add("key1", "val1");
+            my_dictionary.Add("key2", "val2");
+            my_dictionary.Add("key2", "val3");
+            my_dictionary.Add("key3", "val3");
+            my_dictionary.Add("key4", "val4");
+            my_dictionary.Add("key5", "val3");
+            my_dictionary.Add("key5", "val5");
+            my_dictionary.Add("key5", "val6");
+            Console.WriteLine(my_dictionary.GetValue("key1"));
+            Console.WriteLine(my_dictionary.GetValue("key2"));
+            Console.WriteLine(my_dictionary.GetValue("key4"));
+            Console.WriteLine(my_dictionary.GetValue("key5"));
+            Console.WriteLine(my_dictionary.GetValue("key5"));
 
         }
 
-        public class MyHashMap<TKey, TValue>
+        public class MyDictionary<TKey, TValue>
         {
-            private TKey Key { get; set; }
-            private TValue Value { get; set; }
+            private TKey[] keys;
+            private TValue[] values;
+            private int count;
 
-            private Node<TKey, TValue>[] Elements { get; set; }
-
-            private int size = 1;
-
-            private int currentIndex = 0;
-
-
-            public MyHashMap(int size)
+            public MyDictionary()
             {
-                Elements = new Node<TKey, TValue>[size];
-            }
-
-            public MyHashMap()
-            {
-                Elements = new Node<TKey, TValue>[size];
-            }
-
-            public void Put(TKey key, TValue value)
-            {
-                int hashcode = key.GetHashCode();
-                int index = Math.Abs(hashcode) % Elements.Length;
-                // Elements[index] = value;
-            }
-
-            public TValue Get(TKey key)
-            {
-                int hashcode = key.GetHashCode();
-                int index = Math.Abs(hashcode) % Elements.Length;
-                var node = findKey(key, Elements[index]);
-                return (node != null) ? node.value : default(TValue);
+                keys = new TKey[10];
+                values = new TValue[10];
+                count = 0;
             }
 
             public void Add(TKey key, TValue value)
             {
-                int hashcode = key.GetHashCode();
-                int index = Math.Abs(hashcode) % Elements.Length;
-                var node = new Node<TKey, TValue>(key, value, hashcode);
-                if (currentIndex < Elements.Length)
+                if (ContainsKey(key))
                 {
-                    if (Elements[index] == null)
-                        Elements[index] = node;
-                    else
-                    {
-                        var head = Elements[index];
-                        var exisingNode = findKey(key, head);
-                        if (exisingNode == null)
-                            head.next = node;
-                    }
+                    int index = Array.IndexOf(keys, key, 0, count);
+                    values[index] = value;
                 }
                 else
                 {
-                    var newElements = new Node<TKey, TValue>[Elements.Length * 2];
-                    Array.Copy(Elements, newElements, Elements.Length);
-                    index = Math.Abs(hashcode) % newElements.Length;
-                    if (newElements[index] == null)
-                        newElements[index] = node;
-                    Elements = newElements;
+                    if (count == keys.Length)
+                    {
+                        ResizeArrays();
+                    }
+                    keys[count] = key;
+                    values[count] = value;
+                    count++;
                 }
-                currentIndex++;
             }
 
-            private Node<TKey, TValue> findKey(TKey key, Node<TKey, TValue> head)
+            public bool ContainsKey(TKey key)
             {
-                var current = head;
-                while (current != null)
+                for (int i = 0; i < count; i++)
                 {
-                    if (current.key.Equals(key)) return current;
-                    current = current.next;
+                    if (keys[i].Equals(key))
+                    {
+                        return true;
+                    }
                 }
-                return null;
+                return false;
             }
-        }
 
-        private class Node<TKey, TValue>
-        {
-            int hashCode;
-            public TValue value;
-            public TKey key;
-            public Node<TKey, TValue> next;
-
-            public Node(TKey key, TValue value, int hashCode)
+            public TValue GetValue(TKey key)
             {
-                this.key = key;
-                this.value = value;
-                this.hashCode = hashCode;
+                for (int i = 0; i < count; i++)
+                {
+                    if (keys[i].Equals(key))
+                    {
+                        return values[i];
+                    }
+                }
+                throw new KeyNotFoundException("Key not found in the dictionary.");
+            }
+
+            private void ResizeArrays()
+            {
+                int newLength = keys.Length * 2;
+                TKey[] newKeys = new TKey[newLength];
+                TValue[] newValues = new TValue[newLength];
+                Array.Copy(keys, newKeys, count);
+                Array.Copy(values, newValues, count);
+                keys = newKeys;
+                values = newValues;
             }
         }
+
     }
 }
 
