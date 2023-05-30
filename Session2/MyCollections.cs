@@ -50,6 +50,18 @@ namespace MentorshipProgram.Session2
             my_hash_map.Add("key2", "val2");
             my_hash_map.Add("key3", "val3");
             my_hash_map.Add("key3", "val3");
+            Console.WriteLine(my_hash_map.Size());
+
+            my_hash_map.Add("key4", "val4");
+            Console.WriteLine(my_hash_map.Size());
+
+            my_hash_map.Remove("key4");
+            Console.WriteLine(my_hash_map.Size());
+
+            my_hash_map.Clear();
+            Console.WriteLine(my_hash_map.Size());
+            my_hash_map.Add("key1", "val1");
+            Console.WriteLine(my_hash_map.Size());
 
         }
 
@@ -342,24 +354,38 @@ namespace MentorshipProgram.Session2
 
             private void Resize()
             {
-                var newKeys = new string[keys.Length * 2];
-                Array.Copy(keys, newKeys, keys.Length);
-                keys = newKeys;
+                if (keys.Length != 0)
+                {
+                    var newKeys = new string[keys.Length * 2];
+                    Array.Copy(keys, newKeys, keys.Length);
+                    keys = newKeys;
 
-                var newValues = new string[values.Length * 2];
-                Array.Copy(values, newValues, keys.Length);
-                values = newValues;
+                    var newValues = new string[values.Length * 2];
+                    Array.Copy(values, newValues, keys.Length);
+                    values = newValues;
+                }
+                else
+                {
+                    keys = new string[1];
+                    values = new string[1];
+                }
             }
 
             public void Clear()
             {
                 keys = new string[0];
                 values = new string[0];
+                index = 0;
             }
 
             public bool IsEmpty()
             {
-                return keys.Length == 0;
+                return index == 0;
+            }
+
+            public int Size()
+            {
+                return index;
             }
 
             public void Remove(string key)
