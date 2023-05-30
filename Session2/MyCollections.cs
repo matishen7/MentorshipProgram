@@ -45,6 +45,12 @@ namespace MentorshipProgram.Session2
             my_set.Remove(2);
             Console.WriteLine(my_set.Size());
 
+            var my_hash_map = new MyDictionary();
+            my_hash_map.Add("key1", "val1");
+            my_hash_map.Add("key2", "val2");
+            my_hash_map.Add("key3", "val3");
+            my_hash_map.Add("key3", "val3");
+
         }
 
         #region array list
@@ -207,7 +213,7 @@ namespace MentorshipProgram.Session2
 
             public bool isEmpty()
             {
-                return (head == null); 
+                return (head == null);
             }
         }
 
@@ -240,7 +246,7 @@ namespace MentorshipProgram.Session2
 
             public MySet()
             {
-                elements= new int[10];
+                elements = new int[10];
             }
 
             public MySet(int[] elements)
@@ -310,6 +316,82 @@ namespace MentorshipProgram.Session2
                 elements = newElements;
             }
         }
+        #endregion
+
+        #region hash maps, dictionaries
+
+        public class MyDictionary
+        {
+            private string[] keys = new string[10];
+            private string[] values = new string[10];
+            private int index = 0;
+            public MyDictionary() { }
+
+            public void Add(string key, string value)
+            {
+                var foundIndex = Array.IndexOf(keys, key);
+                if (foundIndex == -1)
+                {
+                    if (index >= keys.Length)
+                        Resize();
+                    keys[index] = key;
+                    values[index] = value;
+                    index++;
+                }
+            }
+
+            private void Resize()
+            {
+                var newKeys = new string[keys.Length * 2];
+                Array.Copy(keys, newKeys, keys.Length);
+                keys = newKeys;
+
+                var newValues = new string[values.Length * 2];
+                Array.Copy(values, newValues, keys.Length);
+                values = newValues;
+            }
+
+            public void Clear()
+            {
+                keys = new string[0];
+                values = new string[0];
+            }
+
+            public bool IsEmpty()
+            {
+                return keys.Length == 0;
+            }
+
+            public void Remove(string key)
+            {
+                var foundIndex= Array.IndexOf(keys, key);
+                if (foundIndex != -1)
+                {
+                    var newKeys = new string[keys.Length - 1];
+                    newKeys = Copy(keys, newKeys, foundIndex);
+                    keys = newKeys;
+
+                    var newValues = new string[values.Length - 1];
+                    newValues = Copy(values, newValues, foundIndex);
+                    values = newValues;
+                    index--;
+                }
+            }
+
+            private string[] Copy(string[] source, string[] target, int indexToDelete)
+            {
+                int t = 0;
+                for (int i = 0; i < source.Length; i++)
+                {
+                    if (i == indexToDelete) continue;
+                    target[t] = source[i];
+                    t++;
+                }
+                return target;
+            }
+
+        }
+
         #endregion
     }
 }
