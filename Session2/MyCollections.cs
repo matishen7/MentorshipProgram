@@ -27,7 +27,11 @@ namespace MentorshipProgram.Session2
             Console.WriteLine(my_linked_list.Contains(2));
             Console.WriteLine(my_linked_list.Contains(3));
             Console.WriteLine(my_linked_list.Size());
-            my_linked_list.Add(2);
+            my_linked_list.Add(3);
+            Console.WriteLine(my_linked_list.Size());
+            Console.WriteLine(my_linked_list.isEmpty());
+
+            my_linked_list.Remove(2);
             Console.WriteLine(my_linked_list.Size());
             Console.WriteLine(my_linked_list.isEmpty());
         }
@@ -138,6 +142,30 @@ namespace MentorshipProgram.Session2
                         currentNode = currentNode.next;
                     }
                     currentNode.next = newNode;
+                }
+            }
+
+            public void Remove(int value)
+            {
+                Node curr = head;
+                Node prev = null;
+                while (curr != null)
+                {
+                    if (curr.value == value)
+                    {
+                        if (curr == head)
+                        {
+                            head = head.next;
+                        }
+                        else
+                        {
+                            prev.next = curr.next;
+                            curr = head;
+                        }
+
+                    }
+                    prev = curr;
+                    curr = curr.next;
                 }
             }
 
