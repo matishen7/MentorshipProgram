@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.ComponentModel;
+using System.Reflection;
 
 namespace MentorshipProgram.Session2
 {
@@ -34,6 +35,16 @@ namespace MentorshipProgram.Session2
             my_linked_list.Remove(2);
             Console.WriteLine(my_linked_list.Size());
             Console.WriteLine(my_linked_list.isEmpty());
+
+            var my_set = new MySet(2);
+            for (int i = 0; i <= 11; i++)
+            {
+                my_set.Add(i);
+            }
+
+            my_set.Remove(2);
+            Console.WriteLine(my_set.Size());
+
         }
 
         #region array list
@@ -218,6 +229,87 @@ namespace MentorshipProgram.Session2
             }
         }
 
+        #endregion
+
+        #region sets
+
+        public class MySet
+        {
+            private int[] elements;
+            private int index = 0;
+
+            public MySet()
+            {
+                elements= new int[10];
+            }
+
+            public MySet(int[] elements)
+            {
+                this.elements = elements;
+            }
+
+            public MySet(int size)
+            {
+                elements = new int[size];
+            }
+
+            public bool Contains(int value)
+            {
+                return Array.IndexOf(elements, value) != -1;
+            }
+
+            public bool IsEmpty()
+            {
+                return index == 0;
+            }
+
+            public int Size()
+            {
+                return index;
+            }
+
+            public void Add(int value)
+            {
+                if (Array.IndexOf(elements, value) == -1)
+                {
+                    if (index == elements.Length)
+                        Resize();
+                    elements[index] = value;
+                    index++;
+                }
+            }
+
+            public void Remove(int value)
+            {
+                int index = Array.IndexOf(elements, value);
+                if (index != -1)
+                {
+                    var newElements = new int[elements.Length - 1];
+                    newElements = Copy(elements, newElements, index);
+                    elements = newElements;
+                    this.index--;
+                }
+            }
+
+            private int[] Copy(int[] source, int[] target, int index)
+            {
+                int t = 0;
+                for (int i = 0; i < source.Length; i++)
+                {
+                    if (i == index) continue;
+                    target[t] = source[i];
+                    t++;
+                }
+                return target;
+            }
+
+            private void Resize()
+            {
+                var newElements = new int[elements.Length * 2];
+                Array.Copy(elements, newElements, elements.Length);
+                elements = newElements;
+            }
+        }
         #endregion
     }
 }
