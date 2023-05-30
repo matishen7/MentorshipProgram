@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.ComponentModel;
 
 namespace MentorshipProgram.Session2
 {
@@ -17,7 +18,13 @@ namespace MentorshipProgram.Session2
             arrList.Put(0, 2);
             arrList.Remove(2);
             arrList.Add(5);
+
+            var my_linked_list = new LinkedList();
+            my_linked_list.Add(1);
+            my_linked_list.Add(2);
         }
+
+        #region array list
 
         public class MyArrayList
         {
@@ -103,5 +110,48 @@ namespace MentorshipProgram.Session2
                 size = newElements.Length;
             }
         }
+        #endregion
+
+        #region linked list
+
+        public class LinkedList
+        {
+            private Node head;
+
+            public void Add(int value)
+            {
+                var newNode = new Node(value);
+                if (head == null) head = newNode;
+                else
+                {
+                    var currentNode = head;
+                    while (currentNode.next != null)
+                    {
+                        currentNode = currentNode.next;
+                    }
+                    currentNode.next = newNode;
+                }
+            }
+        }
+
+        public class Node
+        {
+            public int value;
+            public Node next;
+            public Node(int value, Node node)
+            {
+                this.value = value;
+                this.next = node;
+            }
+
+            public Node(int value) { this.value = value; }
+
+            public Node()
+            {
+
+            }
+        }
+
+        #endregion
     }
 }
