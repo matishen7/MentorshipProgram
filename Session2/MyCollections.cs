@@ -20,8 +20,16 @@ namespace MentorshipProgram.Session2
             arrList.Add(5);
 
             var my_linked_list = new LinkedList();
+            Console.WriteLine(my_linked_list.isEmpty());
+
             my_linked_list.Add(1);
             my_linked_list.Add(2);
+            Console.WriteLine(my_linked_list.Contains(2));
+            Console.WriteLine(my_linked_list.Contains(3));
+            Console.WriteLine(my_linked_list.Size());
+            my_linked_list.Add(2);
+            Console.WriteLine(my_linked_list.Size());
+            Console.WriteLine(my_linked_list.isEmpty());
         }
 
         #region array list
@@ -131,6 +139,36 @@ namespace MentorshipProgram.Session2
                     }
                     currentNode.next = newNode;
                 }
+            }
+
+            public bool Contains(int value)
+            {
+                if (head == null) return false;
+                var currentNode = head;
+                while (currentNode != null)
+                {
+                    if (currentNode.value == value) return true;
+                    currentNode = currentNode.next;
+                }
+                return false;
+            }
+
+            public int Size()
+            {
+                var size = 0;
+                if (head == null) return size;
+                var currentNode = head;
+                while (currentNode != null)
+                {
+                    size++;
+                    currentNode = currentNode.next;
+                }
+                return size;
+            }
+
+            public bool isEmpty()
+            {
+                return (head == null); 
             }
         }
 
