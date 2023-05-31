@@ -58,6 +58,7 @@
     <Compile Include="Session2\MyCollections.cs" />
     <Compile Include="Session2\MyQueueProgram.cs" />
     <Compile Include="Session2\MyStackProgram.cs" />
+    <Compile Include="Session2\HeapProgram.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

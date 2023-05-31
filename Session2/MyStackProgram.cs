@@ -17,6 +17,7 @@ namespace MentorshipProgram.Session2
             //stack.Push(4);
             Console.WriteLine(stack.Peek());
             Console.WriteLine(stack.Size());
+            stack.Set(0,2);
             //Console.WriteLine(stack.Pop());
             //Console.WriteLine(stack.Size());
         }
@@ -48,6 +49,12 @@ namespace MentorshipProgram.Session2
                     Resize();
                 }
                 elements[index++] = value;
+            }
+
+            public void Set(int ind, int value)
+            {
+                if (ind < index) elements[ind] = value;
+                else throw new IndexOutOfRangeException("No such index found!");
             }
 
             public int Pop()
