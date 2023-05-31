@@ -4,42 +4,39 @@ using System;
 namespace MentorshipProgram.Session2
 {
     [TestClass]
-    public class MyQueueProgram
+    public class MyStackProgram
     {
         [TestMethod]
         public void TestMethod1()
         {
-            var queue = new MyQueue();
-            queue.Push(1);
-            queue.Push(2);
-            queue.Push(3);
-            queue.Push(4);
-            Console.WriteLine(queue.Pop());
-            Console.WriteLine(queue.Pop());
-            Console.WriteLine(queue.Pop());
-            Console.WriteLine(queue.Pop());
-            queue.Push(6);
-            //Console.WriteLine(queue.Pop());
-            Console.WriteLine(queue.Peek());
+            var stack = new MyStack();
+            stack.Push(1);
+            stack.Push(2);
+            Console.WriteLine(stack.Pop());
+            stack.Push(3);
+            //stack.Push(4);
+            Console.WriteLine(stack.Peek());
+            Console.WriteLine(stack.Size());
+            //Console.WriteLine(stack.Pop());
+            //Console.WriteLine(stack.Size());
         }
 
-        public class MyQueue
+        public class MyStack
         {
             private int[] elements = new int[] { };
             private int index = 0;
-
-            public MyQueue()
+            public MyStack()
             {
                 elements = new int[] { };
             }
 
-            public MyQueue(int[] elements)
+            public MyStack(int[] elements)
             {
                 this.elements = elements;
                 index = elements.Length;
             }
 
-            public MyQueue(int size)
+            public MyStack(int size)
             {
                 elements = new int[size];
             }
@@ -57,31 +54,31 @@ namespace MentorshipProgram.Session2
             {
                 if (!IsEmpty())
                 {
-                    int first = elements[0];
+                    int last = elements[index - 1];
 
                     Reorganize();
 
-                    return first;
+                    return last;
                 }
 
-                throw new Exception("Queue is empty!");
+                throw new Exception("Stack is empty!");
             }
 
             public int Peek()
             {
                 if (!IsEmpty())
                 {
-                    return elements[0];
+                    return elements[elements.Length - 1];
                 }
 
-                throw new Exception("Queue is empty!");
+                throw new Exception("Stack is empty!");
             }
 
             private void Reorganize()
             {
-                var newElements = new int[elements.Length - 1];
+                var newElements = new int[index - 1];
                 int t = 0;
-                for (int i = 1; i < elements.Length; i++)
+                for (int i = 0; i < index - 1; i++)
                     newElements[t++] = elements[i];
                 elements = newElements;
                 index = elements.Length;
@@ -94,7 +91,7 @@ namespace MentorshipProgram.Session2
 
             public int Size()
             {
-                return (index == 0) ? index : index - 1;
+                return index;
             }
 
             private void Resize()
