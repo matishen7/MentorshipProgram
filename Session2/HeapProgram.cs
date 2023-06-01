@@ -7,6 +7,11 @@ namespace MentorshipProgram.Session2
     [TestClass]
     public class HeapProgram
     {
+        /// <summary>
+        /// parent = floor((index-1)/2)
+        /// left = index*2+1
+        /// right = index*2+2
+        /// </summary>
         [TestMethod]
         public void TestMethod1()
         {
