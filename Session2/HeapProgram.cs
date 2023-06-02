@@ -15,6 +15,9 @@ namespace MentorshipProgram.Session2
         [TestMethod]
         public void TestMethod1()
         {
+            var my_heap = new MyHeap();
+            my_heap.Insert(1);
+            my_heap.Insert(2);
         }
 
         public class MyHeap
@@ -37,13 +40,49 @@ namespace MentorshipProgram.Session2
                 elements = new int[size];
             }
 
-            public void Push(int value)
+            public void Insert(int value)
             {
-                if (index >= elements.Length)
+                if (elements.Length == 0)
                 {
-                    Resize();
+                    elements = new int[1];
+                    elements[index++] = value;
                 }
-                elements[index++] = value;
+                else
+                {
+                    if (index >= elements.Length)
+                        Resize();
+                    elements[index] = value;
+                    Heapify(index);
+                    index++;
+                }
+
+            }
+
+            private void Heapify(int idx)
+            {
+
+                var parentIndex =(int)Math.Floor((idx - 1) / 2.0);
+                while(elements[parentIndex] < elements[idx])
+                {
+                    swap(elements, parentIndex, idx);
+                    idx = parentIndex;
+                    parentIndex = (int)Math.Floor((idx - 1) / 2.0);
+                    if (parentIndex < 0) break;
+                }
+            }
+
+            private void swap(int[] elements, int targetIdx, int sourceIdx)
+            {
+                int temp = elements[sourceIdx];
+                elements[sourceIdx] = elements[targetIdx];
+                elements[targetIdx] = temp;
+            }
+
+            private void Resize()
+            {
+                var newElements = new int[elements.Length + 1];
+                elements.CopyTo(newElements, 0);
+                elements = newElements;
             }
         }
     }
