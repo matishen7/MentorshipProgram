@@ -15,15 +15,22 @@ namespace MentorshipProgram.Session2
         [TestMethod]
         public void TestMethod1()
         {
-            var my_heap = new MyHeap();
+            var my_heap = new MyHeap(new int[] { 75, 50, 25, 45, 35, 10, 15, 20, 40 });
             Console.WriteLine(my_heap.isEmpty());
 
-            for (int i = 0; i < 10; i++)
-            {
-                my_heap.Insert(i);
-            }
-            Console.WriteLine(my_heap.Size());
+            Console.WriteLine(my_heap.Pop());
+            Console.WriteLine(my_heap.Pop());
+            Console.WriteLine(my_heap.Pop());
+            Console.WriteLine(my_heap.Pop());
+            Console.WriteLine(my_heap.Pop());
+            Console.WriteLine(my_heap.Pop());
+            Console.WriteLine(my_heap.Pop());
+            Console.WriteLine(my_heap.Pop());
+            Console.WriteLine(my_heap.Pop());
+            Console.WriteLine("Size = " + my_heap.Size());
             Console.WriteLine(my_heap.isEmpty());
+            my_heap.Insert(5);
+            Console.WriteLine("Max value = " + my_heap.Peek());
         }
 
         public class MyHeap
@@ -35,9 +42,9 @@ namespace MentorshipProgram.Session2
                 elements = new int[] { };
             }
 
-            public MyHeap(int[] elements)
+            public MyHeap(int[] el)
             {
-                this.elements = elements;
+                this.elements = el;
                 index = elements.Length;
             }
 
@@ -56,27 +63,41 @@ namespace MentorshipProgram.Session2
                 else
                 {
                     if (index >= elements.Length)
-                        Resize();
+                        ResizeWhenInsert();
                     elements[index] = value;
-                    Heapify(index);
+                    HeapifyWhenInsert(index);
                     index++;
                 }
 
             }
 
+
             public int Peek()
             {
-                return (elements.Length > 0 )? elements[0] : throw new Exception("No elements found!");
+                return (elements.Length > 0) ? elements[0] : throw new Exception("No elements found!");
             }
 
-            //public int Pop()
-            //{
-                
-            //}
+            public int Pop()
+            {
+                int result;
+                if (elements.Length <= 0)
+                    throw new Exception("No elements found!");
+                else
+                {
+                    result = elements[0];
+                    swap(elements, 0, elements.Length - 1);
+
+                    ResizeWhenPop();
+                    HeapifyWhenPop(0);
+                    index = elements.Length;
+
+                }
+                return result;
+            }
 
             public int Size()
             {
-                return index;
+                return elements.Length;
             }
 
             public bool isEmpty()
@@ -84,16 +105,36 @@ namespace MentorshipProgram.Session2
                 return elements.Length == 0;
             }
 
-            private void Heapify(int idx)
+            private void HeapifyWhenInsert(int idx)
             {
 
-                var parentIndex =(int)Math.Floor((idx - 1) / 2.0);
-                while(elements[parentIndex] < elements[idx])
+                var parentIndex = (int)Math.Floor((idx - 1) / 2.0);
+                while (elements[parentIndex] < elements[idx])
                 {
                     swap(elements, parentIndex, idx);
                     idx = parentIndex;
                     parentIndex = (int)Math.Floor((idx - 1) / 2.0);
                     if (parentIndex < 0) break;
+                }
+            }
+
+            private void HeapifyWhenPop(int idx)
+            {
+                int indexToSwap;
+                var leftIndex = (idx * 2) + 1;
+                if (leftIndex >= elements.Length) return;
+                var rightIndex = (idx * 2) + 2;
+                if (rightIndex >= elements.Length)
+                    indexToSwap = (elements[idx] < elements[leftIndex]) ? leftIndex : idx;
+                
+                else
+                    indexToSwap = (elements[rightIndex] < elements[leftIndex]) ? leftIndex : rightIndex;
+
+                if (elements[idx] < elements[indexToSwap])
+                {
+                    swap(elements, idx, indexToSwap);
+                    idx = indexToSwap;
+                    HeapifyWhenPop(idx);
                 }
             }
 
@@ -104,10 +145,19 @@ namespace MentorshipProgram.Session2
                 elements[targetIdx] = temp;
             }
 
-            private void Resize()
+            private void ResizeWhenInsert()
             {
                 var newElements = new int[elements.Length + 1];
                 elements.CopyTo(newElements, 0);
+                elements = newElements;
+            }
+
+            private void ResizeWhenPop()
+            {
+                var newElements = new int[elements.Length - 1];
+                int t = 0;
+                for (int i = 0; i < elements.Length - 1; i++)
+                    newElements[t++] = elements[i];
                 elements = newElements;
             }
         }
