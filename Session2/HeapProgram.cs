@@ -16,8 +16,14 @@ namespace MentorshipProgram.Session2
         public void TestMethod1()
         {
             var my_heap = new MyHeap();
-            my_heap.Insert(1);
-            my_heap.Insert(2);
+            Console.WriteLine(my_heap.isEmpty());
+
+            for (int i = 0; i < 10; i++)
+            {
+                my_heap.Insert(i);
+            }
+            Console.WriteLine(my_heap.Size());
+            Console.WriteLine(my_heap.isEmpty());
         }
 
         public class MyHeap
@@ -56,6 +62,26 @@ namespace MentorshipProgram.Session2
                     index++;
                 }
 
+            }
+
+            public int Peek()
+            {
+                return (elements.Length > 0 )? elements[0] : throw new Exception("No elements found!");
+            }
+
+            //public int Pop()
+            //{
+                
+            //}
+
+            public int Size()
+            {
+                return index;
+            }
+
+            public bool isEmpty()
+            {
+                return elements.Length == 0;
             }
 
             private void Heapify(int idx)
