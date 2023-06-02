@@ -105,7 +105,7 @@ namespace MentorshipProgram.Session2
                 return elements.Length == 0;
             }
 
-            private void HeapifyWhenInsert(int idx)
+            private void HeapifyWhenInsert(int idx)// Big O O(logN)
             {
 
                 var parentIndex = (int)Math.Floor((idx - 1) / 2.0);
@@ -118,7 +118,7 @@ namespace MentorshipProgram.Session2
                 }
             }
 
-            private void HeapifyWhenPop(int idx)
+            private void HeapifyWhenPop(int idx) // Big O O(logN)
             {
                 int indexToSwap;
                 var leftIndex = (idx * 2) + 1;
