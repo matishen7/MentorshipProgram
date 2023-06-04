@@ -59,6 +59,7 @@
     <Compile Include="Session2\MyQueueProgram.cs" />
     <Compile Include="Session2\MyStackProgram.cs" />
     <Compile Include="Session2\HeapProgram.cs" />
+    <Compile Include="Session2\TreeMapProgram.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
