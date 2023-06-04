@@ -14,7 +14,14 @@ namespace MentorshipProgram.Session2
         public void TestMethod1()
         {
             TreeMap treeMap = new TreeMap();
-            treeMap.Insert(1, 2);
+            for (int i = 0; i < 10; i++)
+            {
+                treeMap.Insert(i, i);
+            }
+            for (int i = 0; i < 10; i++)
+            {
+                Console.WriteLine(treeMap.Get(i));
+            }
         }
 
         public class TreeMap
