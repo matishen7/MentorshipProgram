@@ -39,7 +39,7 @@ namespace MentorshipProgram.Session3
 
         public class SingletonLazy
         {
-            private static SingletonLazy instance = new SingletonLazy();
+            private static SingletonLazy instance = null;
             private SingletonLazy()
             {
 
@@ -47,6 +47,8 @@ namespace MentorshipProgram.Session3
 
             public static SingletonLazy GetInstance()
             {
+                if (instance == null)
+                    instance = new SingletonLazy();
                 return instance;
             }
 
