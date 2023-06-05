@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Threading;
 
 namespace MentorshipProgram.Session3
 {
@@ -20,6 +21,18 @@ namespace MentorshipProgram.Session3
 
             var lazy_singleton2 = SingletonLazy.GetInstance();
             Console.WriteLine(lazy_singleton2.GetHashCode());
+
+            new Thread(() => {
+                var lazy_singletonThreadSafe = SingletonThreadSafe.GetInstance();
+                Console.WriteLine(lazy_singletonThreadSafe.GetHashCode());
+
+            });
+
+            new Thread(() => {
+                var lazy_singletonThreadSafe2 = SingletonThreadSafe.GetInstance();
+                Console.WriteLine(lazy_singletonThreadSafe2.GetHashCode());
+
+            });
         }
 
         public class SingletonEager
@@ -49,6 +62,30 @@ namespace MentorshipProgram.Session3
             {
                 if (instance == null)
                     instance = new SingletonLazy();
+                return instance;
+            }
+
+        }
+
+        public class SingletonThreadSafe
+        {
+            private static SingletonThreadSafe instance = null;
+            private static object _lock = new object();
+            private SingletonThreadSafe()
+            {
+
+            }
+
+            public static SingletonThreadSafe GetInstance()
+            {
+                if (instance == null)
+                {
+                    lock (_lock)
+                    {
+                        if (instance == null)
+                            instance = new SingletonThreadSafe();
+                    }
+                }
                 return instance;
             }
 
