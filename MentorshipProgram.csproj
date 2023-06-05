@@ -60,6 +60,7 @@
     <Compile Include="Session2\MyStackProgram.cs" />
     <Compile Include="Session2\HeapProgram.cs" />
     <Compile Include="Session2\TreeMapProgram.cs" />
+    <Compile Include="Session3\SingletonDesignPatternProgram.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
