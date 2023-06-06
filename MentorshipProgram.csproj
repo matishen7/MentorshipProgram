@@ -183,6 +183,7 @@
     <Compile Include="Session2\TreeMapProgram.cs" />
     <Compile Include="Session3\Md5VsSha256.cs" />
     <Compile Include="Session3\SingletonDesignPatternProgram.cs" />
+    <Compile Include="Session3\BinarySearchTreeProgram.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
