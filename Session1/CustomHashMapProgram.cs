@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Security.Policy;
 using static MentorshipProgram.Session1.CustomSetProgram;
 
@@ -14,6 +15,7 @@ namespace MentorshipProgram.Session1
         {
             var my_dictionary = new MyDictionary<string, string>();
             my_dictionary.Add("key1", "val1");
+            my_dictionary.Add("key1" + (char)(0 + 65), "val1");
             my_dictionary.Add("key2", "val2");
             my_dictionary.Add("key2", "val3");
             my_dictionary.Add("key3", "val3");
