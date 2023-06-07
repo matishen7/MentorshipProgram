@@ -1,5 +1,7 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.Diagnostics.Tracing.Parsers.MicrosoftWindowsWPF;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Reflection;
 
@@ -350,6 +352,18 @@ namespace MentorshipProgram.Session2
                     values[index] = value;
                     index++;
                 }
+            }
+
+            public string GetValue(string key)
+            {
+                for (int i = 0; i < keys.Length; i++)
+                {
+                    if (keys[i].Equals(key))
+                    {
+                        return values[i];
+                    }
+                }
+                throw new KeyNotFoundException("Key not found in the dictionary.");
             }
 
             private void Resize()
