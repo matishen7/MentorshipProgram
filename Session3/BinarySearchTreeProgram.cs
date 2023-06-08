@@ -9,59 +9,59 @@ namespace MentorshipProgram.Session3
         [TestMethod]
         public void TestMethod1()
         {
-            var bst = new BinarySearchTree();
-            bst.Insert(10, null);
+            var bst = new BinaryTree();
+            bst.Insert(10);
+            bst.Insert(11);
+            bst.Insert(9);
         }
 
-        public class BinarySearchTree
+        public class BinaryTree
         {
-            public BinaryNode head;
-            public BinarySearchTree()
+            private class Node
             {
-                head = null;
-            }
-            public BinarySearchTree(BinaryNode head)
-            {
-                this.head = head;
+                public int value;
+                public Node left;
+                public Node right;
+
+                public Node(int value)
+                {
+                    this.value = value;
+                    this.left = null;
+                    this.right = null;
+                }
             }
 
-            public void Insert(int val, BinaryNode node)
+            private Node root;
+
+            public BinaryTree()
             {
-                if (node == null)
+                root = null;
+            }
+
+            public void Insert(int value)
+            {
+                root = InsertNode(root, value);
+            }
+
+            private Node InsertNode(Node current, int value)
+            {
+                if (current == null)
                 {
-                    node = new BinaryNode(val);
-                    this.head = node;
+                    return new Node(value);
                 }
-                else if (val < node.value)
+                else if (value < current.value)
                 {
-                    if (node.left != null)
-                        Insert(val, node.left);
-                    else node.left = new BinaryNode(val);
+                    current.left = InsertNode(current.left, value);
                 }
                 else
                 {
-                    if (node.right != null)
-                        Insert(val, node.right);
-                    else node.right = new BinaryNode(val);
+                    current.right = InsertNode(current.right, value);
                 }
+
+                return current;
             }
         }
 
-        public class BinaryNode
-        {
-            public int value;
-            public BinaryNode left;
-            public BinaryNode right;
-
-            public BinaryNode() { }
-            public BinaryNode(int value) { this.value = value; }
-
-            public BinaryNode(int value, BinaryNode left, BinaryNode right) : this(value)
-            {
-                this.left = left;
-                this.right = right;
-            }
-        }
 
     }
 }
