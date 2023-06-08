@@ -17,12 +17,14 @@ namespace MentorshipProgram.Session3
             bst.Insert(8);
             bst.Insert(20);
             bst.Insert(50);
+            bst.Height();
             bst.BFS();
             bst.DFS();
             bst.Delete(9);
             bst.BFS();
             bst.Delete(10);
             bst.BFS();
+            bst.Height();
         }
 
         public class BinaryTree
@@ -154,6 +156,22 @@ namespace MentorshipProgram.Session3
                 }
 
                 return node;
+            }
+
+            public void Height()
+            {
+                Console.WriteLine("Height = " + CalculateHeight(root));
+            }
+
+            private int CalculateHeight(Node root)
+            {
+                if (root == null)
+                    return -1; // Empty tree has height -1
+
+                int leftHeight = CalculateHeight(root.left);
+                int rightHeight = CalculateHeight(root.right);
+
+                return Math.Max(leftHeight, rightHeight) + 1;
             }
         }
     }
