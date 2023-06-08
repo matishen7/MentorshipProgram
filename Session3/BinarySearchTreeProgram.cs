@@ -20,6 +20,9 @@ namespace MentorshipProgram.Session3
             bst.BFS();
             bst.DFS();
             bst.Delete(9);
+            bst.BFS();
+            bst.Delete(10);
+            bst.BFS();
         }
 
         public class BinaryTree
