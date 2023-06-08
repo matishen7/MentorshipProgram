@@ -19,6 +19,7 @@ namespace MentorshipProgram.Session3
             bst.Insert(50);
             bst.BFS();
             bst.DFS();
+            bst.Delete(9);
         }
 
         public class BinaryTree
@@ -100,9 +101,58 @@ namespace MentorshipProgram.Session3
                 if (root.right != null) DFSBinaryTree(root.right);
                 return;
             }
+
+            public void Delete(int value)
+            {
+                DeleteNode(root, value);
+            }
+
+
+            private Node DeleteNode(Node root, int value)
+            {
+                if (root == null)
+                    return root; // Value not found, return the original root
+
+                if (value < root.value)
+                {
+                    root.left = DeleteNode(root.left, value); // Value is in the left subtree
+                }
+                else if (value > root.value)
+                {
+                    root.right = DeleteNode(root.right, value); // Value is in the right subtree
+                }
+                else
+                {
+                    // Value found, perform deletion based on the scenarios
+                    if (root.left == null)
+                    {
+                        return root.right; // Node has no left child, replace with the right child (or null)
+                    }
+                    else if (root.right == null)
+                    {
+                        return root.left; // Node has no right child, replace with the left child
+                    }
+                    else
+                    {
+                        // Node has two children, find the minimum value in the right subtree
+                        Node minRight = FindMinimum(root.right);
+                        root.value = minRight.value; // Replace the value of the current node with the minimum value
+                        root.right = DeleteNode(root.right, minRight.value); // Recursively delete the duplicate value node
+                    }
+                }
+
+                return root;
+            }
+            private Node FindMinimum(Node node)
+            {
+                while (node.left != null)
+                {
+                    node = node.left;
+                }
+
+                return node;
+            }
         }
-
-
     }
 }
 
