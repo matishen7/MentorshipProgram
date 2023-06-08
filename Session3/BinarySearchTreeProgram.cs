@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections.Generic;
 
 namespace MentorshipProgram.Session3
 {
@@ -13,6 +14,10 @@ namespace MentorshipProgram.Session3
             bst.Insert(10);
             bst.Insert(11);
             bst.Insert(9);
+            bst.Insert(8);
+            bst.Insert(20);
+            bst.Insert(50);
+            bst.BFS();
         }
 
         public class BinaryTree
@@ -59,6 +64,24 @@ namespace MentorshipProgram.Session3
                 }
 
                 return current;
+            }
+
+            public void BFS()
+            {
+                Queue<Node> q = new Queue<Node>();
+                q.Enqueue(root);
+                while (q.Count > 0)
+                {
+                    Node currentNode = q.Dequeue();
+                    Console.WriteLine(currentNode.value);
+                    if (currentNode.left != null) q.Enqueue(currentNode.left);
+                    if (currentNode.right != null) q.Enqueue(currentNode.right);
+                }
+            }
+
+            private Node DeleteNode(Node root, int value)
+            {
+                throw new NotImplementedException();
             }
         }
 
