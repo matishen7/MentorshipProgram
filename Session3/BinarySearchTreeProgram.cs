@@ -18,6 +18,7 @@ namespace MentorshipProgram.Session3
             bst.Insert(20);
             bst.Insert(50);
             bst.BFS();
+            bst.DFS();
         }
 
         public class BinaryTree
@@ -66,8 +67,14 @@ namespace MentorshipProgram.Session3
                 return current;
             }
 
+            /// <summary>
+            /// visualization of binary tree
+            /// https://www.cs.usfca.edu/~galles/visualization/BST.html
+            /// </summary>
+
             public void BFS()
             {
+                Console.WriteLine("***BFS of Binary Tree***");
                 Queue<Node> q = new Queue<Node>();
                 q.Enqueue(root);
                 while (q.Count > 0)
@@ -79,9 +86,19 @@ namespace MentorshipProgram.Session3
                 }
             }
 
-            private Node DeleteNode(Node root, int value)
+            public void DFS()
             {
-                throw new NotImplementedException();
+                Console.WriteLine("***DFS of Binary Tree***");
+                Node currentNode = root;
+                DFSBinaryTree(currentNode);
+            }
+
+            private void DFSBinaryTree(Node root)
+            {
+                Console.WriteLine(root.value);
+                if (root.left != null) DFSBinaryTree(root.left);
+                if (root.right != null) DFSBinaryTree(root.right);
+                return;
             }
         }
 
