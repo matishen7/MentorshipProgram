@@ -100,7 +100,7 @@ namespace MentorshipProgram.Session3
 
             public void DFS()
             {
-                Console.WriteLine("***DFS of Binary Tree - Pre Order***");
+                Console.WriteLine("***DFS of Binary Tree - Pre Order, is useful to recreate a tree***");
                 Node currentNode = root;
                 DFSBinaryTree(currentNode);
             }

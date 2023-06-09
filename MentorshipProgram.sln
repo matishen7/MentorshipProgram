@@ -5,7 +5,9 @@ VisualStudioVersion = 17.4.33403.182
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MentorshipProgram", "MentorshipProgram.csproj", "{7D064132-6605-471E-BC3E-ADB979256500}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Benchmark", "..\Benchmark\Benchmark.csproj", "{36D7A019-2924-4180-BE8D-AB545101E93B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Benchmark", "..\Benchmark\Benchmark.csproj", "{36D7A019-2924-4180-BE8D-AB545101E93B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Design Patterns", "..\Design Patterns\Design Patterns.csproj", "{77A98B89-96BB-4BDA-8645-366C58CF62C5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{36D7A019-2924-4180-BE8D-AB545101E93B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{36D7A019-2924-4180-BE8D-AB545101E93B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{36D7A019-2924-4180-BE8D-AB545101E93B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77A98B89-96BB-4BDA-8645-366C58CF62C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77A98B89-96BB-4BDA-8645-366C58CF62C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77A98B89-96BB-4BDA-8645-366C58CF62C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77A98B89-96BB-4BDA-8645-366C58CF62C5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
