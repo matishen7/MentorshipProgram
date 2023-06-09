@@ -17,7 +17,12 @@ namespace MentorshipProgram.Session3
             bst.Insert(8);
             bst.Insert(20);
             bst.Insert(50);
+            bst.Insert(1);
+            bst.Insert(5);
+            bst.Insert(0);
+            bst.DFS();
             bst.DFSInorder();
+            bst.DFSPostorder();
             //bst.Height();
             //bst.BFS();
             //bst.DFS();
@@ -95,7 +100,7 @@ namespace MentorshipProgram.Session3
 
             public void DFS()
             {
-                Console.WriteLine("***DFS of Binary Tree***");
+                Console.WriteLine("***DFS of Binary Tree - Pre Order***");
                 Node currentNode = root;
                 DFSBinaryTree(currentNode);
             }
@@ -121,6 +126,21 @@ namespace MentorshipProgram.Session3
                 Console.WriteLine(root.value);
                 if (root.right != null) DFSBinaryTreeInOrder(root.right);
                 
+                return;
+            }
+
+            public void DFSPostorder()
+            {
+                Console.WriteLine("***DFS of Binary Tree-  Post Order***");
+                DFSBinaryTreePostOrder(root);
+            }
+
+            private void DFSBinaryTreePostOrder(Node root)
+            {
+
+                if (root.left != null) DFSBinaryTreePostOrder(root.left);
+                if (root.right != null) DFSBinaryTreePostOrder(root.right);
+                Console.WriteLine(root.value);
                 return;
             }
 
