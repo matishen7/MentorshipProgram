@@ -17,14 +17,15 @@ namespace MentorshipProgram.Session3
             bst.Insert(8);
             bst.Insert(20);
             bst.Insert(50);
-            bst.Height();
-            bst.BFS();
-            bst.DFS();
-            bst.Delete(9);
-            bst.BFS();
-            bst.Delete(10);
-            bst.BFS();
-            bst.Height();
+            bst.DFSInorder();
+            //bst.Height();
+            //bst.BFS();
+            //bst.DFS();
+            //bst.Delete(9);
+            //bst.BFS();
+            //bst.Delete(10);
+            //bst.BFS();
+            //bst.Height();
         }
 
         public class BinaryTree
@@ -106,6 +107,24 @@ namespace MentorshipProgram.Session3
                 if (root.right != null) DFSBinaryTree(root.right);
                 return;
             }
+
+            public void DFSInorder()
+            {
+                Console.WriteLine("***DFS of Binary Tree-  In Order***");
+                DFSBinaryTreeInOrder(root);
+            }
+
+            private void DFSBinaryTreeInOrder(Node root)
+            {
+                
+                if (root.left != null) DFSBinaryTreeInOrder(root.left);
+                Console.WriteLine(root.value);
+                if (root.right != null) DFSBinaryTreeInOrder(root.right);
+                
+                return;
+            }
+
+
 
             public void Delete(int value)
             {
