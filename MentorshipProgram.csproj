@@ -184,6 +184,7 @@
     <Compile Include="Session3\Md5VsSha256.cs" />
     <Compile Include="Session3\SingletonDesignPatternProgram.cs" />
     <Compile Include="Session3\BinarySearchTreeProgram.cs" />
+    <Compile Include="Session4\BalancedTreeProgram.cs" />
     <Compile Include="Session4\Performance.cs" />
   </ItemGroup>
   <ItemGroup>
