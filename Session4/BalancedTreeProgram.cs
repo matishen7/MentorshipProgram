@@ -22,128 +22,145 @@ namespace MentorshipProgram.Session4
             tree.Insert(11);
             tree.BFS();
         }
-
-        public class BinaryTree
+    }
+    public class BinaryTree
+    {
+        public class Node
         {
-            public class Node
-            {
-                public int value;
-                public Node left;
-                public Node right;
-                public int height;
+            public int value;
+            public Node left;
+            public Node right;
+            public int height;
 
-                public Node(int value)
-                {
-                    this.value = value;
-                    this.left = null;
-                    this.right = null;
-                }
+            public Node(int value)
+            {
+                this.value = value;
+                this.left = null;
+                this.right = null;
+                this.height = 0; // Initialize height to 0
+            }
+        }
+
+        private Node root;
+
+        public BinaryTree()
+        {
+            root = null;
+        }
+
+        public void Insert(int value)
+        {
+            root = InsertNode(root, value);
+        }
+
+        private Node InsertNode(Node node, int value)
+        {
+            if (node == null)
+            {
+                node = new Node(value);
+                return node;
             }
 
-            private Node root;
-
-            public BinaryTree()
+            if (value < node.value)
+                node.left = InsertNode(node.left, value);
+            else if (value > node.value)
+                node.right = InsertNode(node.right, value);
+            else
             {
-                root = null;
+                // Value already exists in the tree, handle accordingly
+                return node;
             }
 
-            public Node Insert(int value)
+            // Update height of the current node
+            node.height = 1 + Math.Max(GetHeight(node.left), GetHeight(node.right));
+
+            // Perform rotations if necessary to balance the tree
+            int balanceFactor = GetBalanceFactor(node);
+
+            // Left Left Case
+            if (balanceFactor > 1 && value < node.left.value)
+                return RightRotate(node);
+
+            // Right Right Case
+            if (balanceFactor < -1 && value > node.right.value)
+                return LeftRotate(node);
+
+            // Left Right Case
+            if (balanceFactor > 1 && value > node.left.value)
             {
-                if (root == null)
-                {
-                    root = new Node(value);
-                    return root;
-                }
-
-                if (value < root.value)
-                    root.left = Insert(value);
-                else if (value > root.value)
-                    root.right = Insert(value);
-                else return root;
-
-                root.height = 1 + Math.Max(CalculateHeight(root.left), CalculateHeight(root.right));
-
-                var balancedFactor = getBalancedFactor(root);
-
-                if (balancedFactor > 1 && value < root.left.value)
-                    return rightRotate(root);
-
-                else if (balancedFactor < -1 && value > root.right.value)
-                    return leftRotate(root);
-
-                else if (balancedFactor > 1 && value > root.left.value)
-                {
-                    root.left = leftRotate(root.left);
-                    return rightRotate(root);
-                }
-
-                else
-                {
-                    root.right = rightRotate(root.right);
-                    return leftRotate(root);
-                }
-
-                return root;
-
+                node.left = LeftRotate(node.left);
+                return RightRotate(node);
             }
 
-            private int CalculateHeight(Node root)
+            // Right Left Case
+            if (balanceFactor < -1 && value < node.right.value)
             {
-                if (root == null)
-                    return -1; // Empty tree has height -1
-
-                int leftHeight = CalculateHeight(root.left);
-                int rightHeight = CalculateHeight(root.right);
-
-                return Math.Max(leftHeight, rightHeight) + 1;
+                node.right = RightRotate(node.right);
+                return LeftRotate(node);
             }
 
-            private int getBalancedFactor(Node root)
+            return node;
+        }
+
+        private int GetHeight(Node node)
+        {
+            if (node == null)
+                return 0;
+
+            return node.height;
+        }
+
+        private int GetBalanceFactor(Node node)
+        {
+            if (node == null)
+                return 0;
+
+            return GetHeight(node.left) - GetHeight(node.right);
+        }
+
+        private Node LeftRotate(Node node)
+        {
+            Node newRoot = node.right;
+            Node leftSubtree = newRoot.left;
+
+            // Perform rotation
+            newRoot.left = node;
+            node.right = leftSubtree;
+
+            // Update heights
+            node.height = 1 + Math.Max(GetHeight(node.left), GetHeight(node.right));
+            newRoot.height = 1 + Math.Max(GetHeight(newRoot.left), GetHeight(newRoot.right));
+
+            return newRoot;
+        }
+
+        private Node RightRotate(Node node)
+        {
+            Node newRoot = node.left;
+            Node rightSubtree = newRoot.right;
+
+            // Perform rotation
+            newRoot.right = node;
+            node.left = rightSubtree;
+
+            // Update heights
+            node.height = 1 + Math.Max(GetHeight(node.left), GetHeight(node.right));
+            newRoot.height = 1 + Math.Max(GetHeight(newRoot.left), GetHeight(newRoot.right));
+
+            return newRoot;
+        }
+
+        public void BFS()
+        {
+            Console.WriteLine("***BFS of Binary Tree***");
+            Queue<Node> q = new Queue<Node>();
+            q.Enqueue(root);
+            while (q.Count > 0)
             {
-                if (root == null) return 0;
-                var leftHeight = CalculateHeight(root.left);
-                var rightHeight = CalculateHeight(root.right);
-                return leftHeight - rightHeight;
-            }
-
-            private Node leftRotate(Node node)
-            {
-                Node newNode = node.right;
-                node.right = newNode.left;
-                newNode.left = node;
-
-                node.height = Math.Max(CalculateHeight(node.left), CalculateHeight(node.right)) + 1;
-                newNode.height = Math.Max(CalculateHeight(newNode.left), CalculateHeight(newNode.right)) + 1;
-
-                return newNode;
-
-            }
-
-            private Node rightRotate(Node node)
-            {
-                Node newNode = node.left;
-                newNode.left = node.right;
-                newNode.right = node;
-
-                node.height = Math.Max(CalculateHeight(node.left), CalculateHeight(node.right)) + 1;
-                newNode.height = Math.Max(CalculateHeight(newNode.left), CalculateHeight(newNode.right)) + 1;
-
-                return newNode;
-
-            }
-
-            public void BFS()
-            {
-                Console.WriteLine("***BFS of Binary Tree***");
-                Queue<Node> q = new Queue<Node>();
-                q.Enqueue(root);
-                while (q.Count > 0)
-                {
-                    Node currentNode = q.Dequeue();
-                    Console.WriteLine(currentNode.value);
-                    if (currentNode.left != null) q.Enqueue(currentNode.left);
-                    if (currentNode.right != null) q.Enqueue(currentNode.right);
-                }
+                Node currentNode = q.Dequeue();
+                Console.WriteLine(currentNode.value);
+                if (currentNode.left != null) q.Enqueue(currentNode.left);
+                if (currentNode.right != null) q.Enqueue(currentNode.right);
             }
         }
     }
