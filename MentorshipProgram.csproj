@@ -170,6 +170,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Leetcode\EasyLevel.cs" />
     <Compile Include="Leetcode\HashMapProblems.cs" />
     <Compile Include="Leetcode\HeapProblems.cs" />
     <Compile Include="Session1\CustomHashMapProgram.cs" />
