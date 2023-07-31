@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Management;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,18 +14,31 @@ namespace MentorshipProgram.Leetcode
         [TestMethod]
         public void removeDuplicates()
         {
-            int[] nums = new int[] { 0, 0, 1, 1, 1, 2, 2, 3, 3, 4 };
-            List<int> unique = new List<int>();
+            var nums = new int[] { 0, 0, 1, 1, 1, 1, 2, 3, 3 };
+            var list = new List<int>();
+            var unique = new Dictionary<int, int>();
             for (int i = 0; i < nums.Length; i++)
-                if (!unique.Contains(nums[i]))
-                    unique.Add(nums[i]);
-            for (int i = 0; i < unique.Count; i++)
+                if (!unique.ContainsKey(nums[i]))
+                {
+                    unique.Add(nums[i], 1);
+                    list.Add(nums[i]);
+                }
+                else if (unique.ContainsKey(nums[i]))
+                {
+                    var c = unique[nums[i]];
+                    if (c == 1)
+                    {
+                        unique[nums[i]] = ++c;
+                        list.Add(nums[i]);
+                    }
+                }
+            for (int i = 0; i < list.Count; i++)
             {
-                nums[i] = unique.ElementAt(i);
-                //System.out.println(nums[i]);
+                nums[i] = list.ElementAt(i);
             }
 
-            Console.Write(unique.Count);
+            Console.WriteLine(list.Count);
+
         }
     }
 }
