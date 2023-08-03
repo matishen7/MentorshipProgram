@@ -40,5 +40,40 @@ namespace MentorshipProgram.Leetcode
             Console.WriteLine(list.Count);
 
         }
+
+        [TestMethod]
+        [DataRow(123)]
+        public void Reverse(int x)
+        {
+            const int INT_MAX = 2147483647;
+            const int INT_MIN = -2147483648;
+
+            bool isNegative = false;
+            if (x < 0)
+            {
+                isNegative = true;
+                x = Math.Abs(x);
+            }
+
+            long reversed = 0;
+            while (x != 0)
+            {
+                int lastDigit = x % 10;
+                reversed = reversed * 10 + lastDigit;
+                x = x / 10;
+            }
+
+            if (isNegative)
+            {
+                reversed = -reversed;
+            }
+
+            if (reversed > INT_MAX || reversed < INT_MIN)
+            {
+                Console.WriteLine(0);
+            }
+
+            Console.WriteLine ((int)reversed);
+        }
     }
 }
