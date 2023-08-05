@@ -75,5 +75,43 @@ namespace MentorshipProgram.Leetcode
 
             Console.WriteLine ((int)reversed);
         }
+
+        [TestMethod]
+        public int[] AsteroidCollision(int[] asteroids)
+        {
+            Stack<int> stack = new Stack<int>();
+
+            foreach (int asteroid in asteroids)
+            {
+                bool collision = true;
+                while (stack.Count > 0 && asteroid < 0 && stack.Peek() > 0)
+                {
+                    if (Math.Abs(asteroid) > stack.Peek())
+                    {
+                        stack.Pop();
+                    }
+                    else if (Math.Abs(asteroid) == stack.Peek())
+                    {
+                        stack.Pop();
+                        collision = false;
+                        break;
+                    }
+                    else
+                    {
+                        collision = false;
+                        break;
+                    }
+                }
+
+                if (collision)
+                {
+                    stack.Push(asteroid);
+                }
+            }
+
+            int[] result = stack.ToArray();
+            Array.Reverse(result);
+            return result;
+        }
     }
 }
