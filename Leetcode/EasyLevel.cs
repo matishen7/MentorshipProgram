@@ -42,7 +42,7 @@ namespace MentorshipProgram.Leetcode
         }
 
         [TestMethod]
-        [DataRow(123)]
+        [DataRow(-2147483648)]
         public void Reverse(int x)
         {
             const int INT_MAX = 2147483647;
