@@ -135,5 +135,57 @@ namespace MentorshipProgram.Leetcode
 
             return dp[s.Length];
         }
+
+        public string LongestPalindrome(string s)
+        {
+            int n = s.Length;
+            if (n == 0)
+            {
+                return "";
+            }
+
+            bool[,] dp = new bool[n, n];
+            int start = 0;
+            int maxLength = 1;
+
+            // All substrings of length 1 are palindromic
+            for (int i = 0; i < n; i++)
+            {
+                dp[i, i] = true;
+            }
+
+            // Check for palindromic substrings of length 2
+            for (int i = 0; i < n - 1; i++)
+            {
+                if (s[i] == s[i + 1])
+                {
+                    dp[i, i + 1] = true;
+                    start = i;
+                    maxLength = 2;
+                }
+            }
+
+            // Check for palindromic substrings of length >= 3
+            for (int length = 3; length <= n; length++)
+            {
+                for (int i = 0; i <= n - length; i++)
+                {
+                    int j = i + length - 1;
+
+                    if (dp[i + 1, j - 1] && s[i] == s[j])
+                    {
+                        dp[i, j] = true;
+
+                        if (length > maxLength)
+                        {
+                            start = i;
+                            maxLength = length;
+                        }
+                    }
+                }
+            }
+
+            return s.Substring(start, maxLength);
+        }
     }
 }
